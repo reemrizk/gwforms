@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Work Evaluation Form</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <form id="evaluationForm">
+    <!-- Employee Name -->
+    <label for="employeeName">Employee Name:</label>
+    <input type="text" id="employeeName" name="employeeName" required />
+    <br/><br/>
+
+    <!-- Example for Dressed appropriately (use this pattern for ALL 11 fields): -->
+
+    <!-- 1. Dressed appropriately -->
+    <div class="evaluation-item">
+      <p>Dressed appropriately:</p>
+      <div class="radio-group">
+        <input type="radio" id="dressed-4" name="dressed" value="4">
+        <label for="dressed-4">Excellent</label>
+
+        <input type="radio" id="dressed-3" name="dressed" value="3">
+        <label for="dressed-3">Good</label>
+
+        <input type="radio" id="dressed-2" name="dressed" value="2">
+        <label for="dressed-2">Fair</label>
+
+        <input type="radio" id="dressed-1" name="dressed" value="1">
+        <label for="dressed-1">Needs Improvement</label>
+
+        <input type="radio" id="dressed-0" name="dressed" value="0">
+        <label for="dressed-0">Poor</label>
+      </div>
+    </div>
+
+    <!-- 2. Able to take direction -->
+    <div class="evaluation-item">
+      <p>Able to take direction:</p>
+      <div class="radio-group">
+        <input type="radio" id="direction-4" name="direction" value="4">
+        <label for="direction-4">Excellent</label>
+
+        <input type="radio" id="direction-3" name="direction" value="3">
+        <label for="direction-3">Good</label>
+
+        <input type="radio" id="direction-2" name="direction" value="2">
+        <label for="direction-2">Fair</label>
+
+        <input type="radio" id="direction-1" name="direction" value="1">
+        <label for="direction-1">Needs Improvement</label>
+
+        <input type="radio" id="direction-0" name="direction" value="0">
+        <label for="direction-0">Poor</label>
+      </div>
+    </div>
+
+    <!-- 3. Performed duties as directed -->
+    <div class="evaluation-item">
+      <p>Performed duties as directed:</p>
+      <div class="radio-group">
+        <input type="radio" id="performed-4" name="performed" value="4">
+        <label for="performed-4">Excellent</label>
+
+        <input type="radio" id="performed-3" name="performed" value="3">
+        <label for="performed-3">Good</label>
+
+        <input type="radio" id="performed-2" name="performed" value="2">
+        <label for="performed-2">Fair</label>
+
+        <input type="radio" id="performed-1" name="performed" value="1">
+        <label for="performed-1">Needs Improvement</label>
+
+        <input type="radio" id="performed-0" name="performed" value="0">
+        <label for="performed-0">Poor</label>
+      </div>
+    </div>
+
+    <!-- 4. Ability to work without constant supervision -->
+    <div class="evaluation-item">
+      <p>Ability to work without constant supervision:</p>
+      <div class="radio-group">
+        <input type="radio" id="supervision-4" name="supervision" value="4">
+        <label for="supervision-4">Excellent</label>
+
+        <input type="radio" id="supervision-3" name="supervision" value="3">
+        <label for="supervision-3">Good</label>
+
+        <input type="radio" id="supervision-2" name="supervision" value="2">
+        <label for="supervision-2">Fair</label>
+
+        <input type="radio" id="supervision-1" name="supervision" value="1">
+        <label for="supervision-1">Needs Improvement</label>
+
+        <input type="radio" id="supervision-0" name="supervision" value="0">
+        <label for="supervision-0">Poor</label>
+      </div>
+    </div>
+
+    <!-- 5. Willingness to help others -->
+    <div class="evaluation-item">
+      <p>Willingness to help others:</p>
+      <div class="radio-group">
+        <input type="radio" id="helpfulness-4" name="helpfulness" value="4">
+        <label for="helpfulness-4">Excellent</label>
+
+        <input type="radio" id="helpfulness-3" name="helpfulness" value="3">
+        <label for="helpfulness-3">Good</label>
+
+        <input type="radio" id="helpfulness-2" name="helpfulness" value="2">
+        <label for="helpfulness-2">Fair</label>
+
+        <input type="radio" id="helpfulness-1" name="helpfulness" value="1">
+        <label for="helpfulness-1">Needs Improvement</label>
+
+        <input type="radio" id="helpfulness-0" name="helpfulness" value="0">
+        <label for="helpfulness-0">Poor</label>
+      </div>
+    </div>
+
+    <!-- 6. Goes beyond what is required -->
+    <div class="evaluation-item">
+      <p>Goes beyond what is required:</p>
+      <div class="radio-group">
+        <input type="radio" id="beyond-4" name="beyond" value="4">
+        <label for="beyond-4">Excellent</label>
+
+        <input type="radio" id="beyond-3" name="beyond" value="3">
+        <label for="beyond-3">Good</label>
+
+        <input type="radio" id="beyond-2" name="beyond" value="2">
+        <label for="beyond-2">Fair</label>
+
+        <input type="radio" id="beyond-1" name="beyond" value="1">
+        <label for="beyond-1">Needs Improvement</label>
+
+        <input type="radio" id="beyond-0" name="beyond" value="0">
+        <label for="beyond-0">Poor</label>
+      </div>
+    </div>
+
+    <!-- 7. Attitude about job -->
+    <div class="evaluation-item">
+      <p>Attitude about job:</p>
+      <div class="radio-group">
+        <input type="radio" id="attitude-4" name="attitude" value="4">
+        <label for="attitude-4">Excellent</label>
+
+        <input type="radio" id="attitude-3" name="attitude" value="3">
+        <label for="attitude-3">Good</label>
+
+        <input type="radio" id="attitude-2" name="attitude" value="2">
+        <label for="attitude-2">Fair</label>
+
+        <input type="radio" id="attitude-1" name="attitude" value="1">
+        <label for="attitude-1">Needs Improvement</label>
+
+        <input type="radio" id="attitude-0" name="attitude" value="0">
+        <label for="attitude-0">Poor</label>
+      </div>
+    </div>
+
+    <!-- 8. Attendance -->
+    <div class="evaluation-item">
+      <p>Attendance:</p>
+      <div class="radio-group">
+        <input type="radio" id="attendance-4" name="attendance" value="4">
+        <label for="attendance-4">Excellent</label>
+
+        <input type="radio" id="attendance-3" name="attendance" value="3">
+        <label for="attendance-3">Good</label>
+
+        <input type="radio" id="attendance-2" name="attendance" value="2">
+        <label for="attendance-2">Fair</label>
+
+        <input type="radio" id="attendance-1" name="attendance" value="1">
+        <label for="attendance-1">Needs Improvement</label>
+
+        <input type="radio" id="attendance-0" name="attendance" value="0">
+        <label for="attendance-0">Poor</label>
+      </div>
+    </div>
+
+    <!-- 9. Completion of required paperwork -->
+    <div class="evaluation-item">
+      <p>Completion of required paperwork:</p>
+      <div class="radio-group">
+        <input type="radio" id="paperwork-4" name="paperwork" value="4">
+        <label for="paperwork-4">Excellent</label>
+
+        <input type="radio" id="paperwork-3" name="paperwork" value="3">
+        <label for="paperwork-3">Good</label>
+
+        <input type="radio" id="paperwork-2" name="paperwork" value="2">
+        <label for="paperwork-2">Fair</label>
+
+        <input type="radio" id="paperwork-1" name="paperwork" value="1">
+        <label for="paperwork-1">Needs Improvement</label>
+
+        <input type="radio" id="paperwork-0" name="paperwork" value="0">
+        <label for="paperwork-0">Poor</label>
+      </div>
+    </div>
+
+    <!-- 10. Organizational skills -->
+    <div class="evaluation-item">
+      <p>Organizational skills:</p>
+      <div class="radio-group">
+        <input type="radio" id="organize-4" name="organize" value="4">
+        <label for="organize-4">Excellent</label>
+
+        <input type="radio" id="organize-3" name="organize" value="3">
+        <label for="organize-3">Good</label>
+
+        <input type="radio" id="organize-2" name="organize" value="2">
+        <label for="organize-2">Fair</label>
+
+        <input type="radio" id="organize-1" name="organize" value="1">
+        <label for="organize-1">Needs Improvement</label>
+
+        <input type="radio" id="organize-0" name="organize" value="0">
+        <label for="organize-0">Poor</label>
+      </div>
+    </div>
+
+    <!-- 11. Operates machinery safely -->
+    <div class="evaluation-item">
+      <p>Operates machinery safely:</p>
+      <div class="radio-group">
+        <input type="radio" id="safety-4" name="safety" value="4">
+        <label for="safety-4">Excellent</label>
+
+        <input type="radio" id="safety-3" name="safety" value="3">
+        <label for="safety-3">Good</label>
+
+        <input type="radio" id="safety-2" name="safety" value="2">
+        <label for="safety-2">Fair</label>
+
+        <input type="radio" id="safety-1" name="safety" value="1">
+        <label for="safety-1">Needs Improvement</label>
+
+        <input type="radio" id="safety-0" name="safety" value="0">
+        <label for="safety-0">Poor</label>
+      </div>
+    </div>
+
+    <br/>
+    <button type="submit">Submit Evaluation</button>
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>

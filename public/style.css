@@ -1,0 +1,67 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+  background: #f4f4f4;
+}
+
+form {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.evaluation-item {
+  margin-bottom: 25px;
+}
+
+.evaluation-item p {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.radio-group input[type="radio"] {
+  display: none;
+}
+
+.radio-group label {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: #fff;
+  margin-right: 5px;
+}
+
+.radio-group input[type="radio"]:checked + label {
+  background-color: #4285f4;
+  color: white;
+  border-color: #4285f4;
+}
+
+.radio-group label:hover {
+  border-color: #888;
+}
+
+button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3367d6;
+}
