@@ -11,9 +11,9 @@ const PORT = 3000;
 // MySQL config - update if needed
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'Rr!@MiS2024',
-  database: 'evaluation_db'
+  user: 'user1',
+  password: 'G00dW!11',
+  database: 'gwforms_db'
 });
 
 db.connect(err => {
