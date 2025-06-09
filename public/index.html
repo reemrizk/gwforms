@@ -10,16 +10,16 @@
 
   <form id="evaluationForm">
     <!-- Employee Name -->
-    <label for="employee_name">Employee Name:</label>
+    <label for="employeeName">Employee Name:</label>
     
-       <select name="employee_name" id="employee_name" required>
+       <select name="employeeName" id="employeeName" required>
         <option value="" selected >Select an Employee</option>
 
       </select>
 
       <script>
         const employeeNames = ['Name', 'Name2','Name3'];
-        const select = document.getElementById('employee_name');
+        const select = document.getElementById('employeeName');
 
         employeeNames.forEach(name => {
           const option = document.createElement('option');
@@ -31,10 +31,7 @@
       </script>
     
 
-
-
-
-    <input type="text" id="employeeName" name="employeeName" required />
+   
     <br/><br/>
 
     <!-- Example for Dressed appropriately (use this pattern for ALL 11 fields): -->
