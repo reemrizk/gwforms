@@ -59,6 +59,19 @@ app.post('/submit-evaluation', (req, res) => {
   });
 });
 
+//select employee from dropdown
+app.get("/api/employees", (req, res) => {
+  db.query('SELECT name FROM employees', (err,results) => {
+    if (err){
+      console.error('Failed to fetch employees:', err);
+      return res.status(500).json({ error: 'DB error'});
+    }
+    const names = results.map(row => row.name);
+    res.json(names);
+  });
+});
+
+
 // Start server
 app.listen(PORT, "0.0.0.0", () => {
   console.log(` Server running at http://0.0.0.0:${PORT}`);
