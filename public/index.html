@@ -10,7 +10,30 @@
 
   <form id="evaluationForm">
     <!-- Employee Name -->
-    <label for="employeeName">Employee Name:</label>
+    <label for="employee_name">Employee Name:</label>
+    
+       <select name="employee_name" id="employee_name" required>
+        <option value="" selected >Select an Employee</option>
+
+      </select>
+
+      <script>
+        const employeeNames = ['Name', 'Name2','Name3'];
+        const select = document.getElementById('employee_name');
+
+        employeeNames.forEach(name => {
+          const option = document.createElement('option');
+          option.value = name;
+          option.textContent = name;
+          select.appendChild(option);
+
+        });
+      </script>
+    
+
+
+
+
     <input type="text" id="employeeName" name="employeeName" required />
     <br/><br/>
 
