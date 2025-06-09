@@ -30,7 +30,7 @@ document.getElementById('evaluationForm').addEventListener('submit', async (even
   console.log("📡 Sending fetch to server", payload);
 
   try {
-    const res = await fetch('http://localhost:3000/submit-evaluation', {
+    const res = await fetch('/submit-evaluation', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
