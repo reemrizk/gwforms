@@ -13,21 +13,23 @@
     <label for="employeeName">Employee Name:</label>
     
        <select name="employeeName" id="employeeName" required>
-        <option value="" selected >Select an Employee</option>
+        <!-- <option value="" selected >Select an Employee</option> -->
 
       </select>
 
       <script>
-        const employeeNames = ['Name', 'Name2','Name3'];
-        const select = document.getElementById('employeeName');
-
-        employeeNames.forEach(name => {
-          const option = document.createElement('option');
-          option.value = name;
-          option.textContent = name;
-          select.appendChild(option);
-
-        });
+          fetch('/api/employees')
+            .then(res => res.json())
+            .then(employeeNames => {
+              const select = document.getElementById('employeeName');
+              select.innerHTML = '<option value="">-- Select an Employee --</option>';
+              employeeNames.forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+              });
+            });
       </script>
     
 
