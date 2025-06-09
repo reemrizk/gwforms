@@ -36,7 +36,7 @@ app.post('/submit-evaluation', (req, res) => {
   } = req.body;
 
   const sql = `
-    INSERT INTO gwforms_db (
+    INSERT INTO gwforms_table (
       employee_name, dressed, direction, performed, supervision, helpfulness,
       beyond, attitude, attendance, paperwork, organize, safety, total_score, grade
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
