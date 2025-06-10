@@ -272,11 +272,30 @@
     <br/>
     <button type="submit">Submit Evaluation</button>
   </form>
-  <script>
-    document.querySelectorAll('#evaluationForm [name]').forEach(el =>{
-      el.required = true;
-    })
-  </script>
+<script>
+  document.getElementById('evaluationForm').addEventListener('submit', function (e) {
+    const form = e.target;
+    let isValid = true;
+    let firstInvalidField = null;
+
+    // Loop through all form fields with name attributes
+    form.querySelectorAll('[name]').forEach(field => {
+      if (!field.value.trim()) {
+        isValid = false;
+        field.style.border = '2px solid red'; // visual feedback
+        if (!firstInvalidField) firstInvalidField = field;
+      } else {
+        field.style.border = ''; // reset on re-validate
+      }
+    });
+
+    if (!isValid) {
+      e.preventDefault();
+      alert('Please fill in all fields.');
+      firstInvalidField.focus(); // focus the first invalid field
+    }
+  });
+</script>
 
   <script src="script.js"></script>
 </body>
