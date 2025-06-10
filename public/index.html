@@ -272,6 +272,11 @@
     <br/>
     <button type="submit">Submit Evaluation</button>
   </form>
+  <script>
+    document.querySelectorAll('#evaluationForm [name]').forEach(el =>{
+      el.required = true;
+    })
+  </script>
 
   <script src="script.js"></script>
 </body>
