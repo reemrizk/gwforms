@@ -272,11 +272,42 @@
     <br/>
     <button type="submit">Submit Evaluation</button>
   </form>
-  <script>
-    document.querySelectorAll('#evaluationForm [name]').forEach(el =>{
-      el.required = true;
-    })
-  </script>
+<script>
+  document.getElementById('evaluationForm').addEventListener('submit', function (e) {
+    const form = e.target;
+    let isValid = true;
+
+    // Clear previous warning borders
+    form.querySelectorAll('.radio-group').forEach(group => {
+      group.style.border = '';
+      group.style.padding = '';
+    });
+
+    // Loop through unique radio groups
+    const uniqueNames = new Set();
+    form.querySelectorAll('input[type="radio"]').forEach(input => {
+      uniqueNames.add(input.name);
+    });
+
+    uniqueNames.forEach(name => {
+      const group = form.querySelectorAll(`input[name="${name}"]`);
+      const oneChecked = Array.from(group).some(input => input.checked);
+
+      if (!oneChecked) {
+        isValid = false;
+        // Highlight the radio group's parent div
+        group[0].closest('.radio-group').style.border = '2px solid red';
+        group[0].closest('.radio-group').style.padding = '0.5rem';
+      }
+    });
+
+    if (!isValid) {
+      e.preventDefault();
+      alert('Please complete all required fields.');
+    }
+  });
+</script>
+
 
   <script src="script.js"></script>
 </body>
