@@ -42,7 +42,7 @@
     <div class="evaluation-item">
       <p>Dressed appropriately:</p>
       <div class="radio-group">
-        <input type="radio" id="dressed-4" name="dressed" value="4">
+        <input type="radio" id="dressed-4" name="dressed" value="4" required>
         <label for="dressed-4">Excellent</label>
 
         <input type="radio" id="dressed-3" name="dressed" value="3">
@@ -63,7 +63,7 @@
     <div class="evaluation-item">
       <p>Able to take direction:</p>
       <div class="radio-group">
-        <input type="radio" id="direction-4" name="direction" value="4">
+        <input type="radio" id="direction-4" name="direction" value="4" required>
         <label for="direction-4">Excellent</label>
 
         <input type="radio" id="direction-3" name="direction" value="3">
@@ -84,7 +84,7 @@
     <div class="evaluation-item">
       <p>Performed duties as directed:</p>
       <div class="radio-group">
-        <input type="radio" id="performed-4" name="performed" value="4">
+        <input type="radio" id="performed-4" name="performed" value="4" required>
         <label for="performed-4">Excellent</label>
 
         <input type="radio" id="performed-3" name="performed" value="3">
@@ -105,7 +105,7 @@
     <div class="evaluation-item">
       <p>Ability to work without constant supervision:</p>
       <div class="radio-group">
-        <input type="radio" id="supervision-4" name="supervision" value="4">
+        <input type="radio" id="supervision-4" name="supervision" value="4" required>
         <label for="supervision-4">Excellent</label>
 
         <input type="radio" id="supervision-3" name="supervision" value="3">
@@ -126,7 +126,7 @@
     <div class="evaluation-item">
       <p>Willingness to help others:</p>
       <div class="radio-group">
-        <input type="radio" id="helpfulness-4" name="helpfulness" value="4">
+        <input type="radio" id="helpfulness-4" name="helpfulness" value="4" required>
         <label for="helpfulness-4">Excellent</label>
 
         <input type="radio" id="helpfulness-3" name="helpfulness" value="3">
@@ -147,7 +147,7 @@
     <div class="evaluation-item">
       <p>Goes beyond what is required:</p>
       <div class="radio-group">
-        <input type="radio" id="beyond-4" name="beyond" value="4">
+        <input type="radio" id="beyond-4" name="beyond" value="4" required>
         <label for="beyond-4">Excellent</label>
 
         <input type="radio" id="beyond-3" name="beyond" value="3">
@@ -168,7 +168,7 @@
     <div class="evaluation-item">
       <p>Attitude about job:</p>
       <div class="radio-group">
-        <input type="radio" id="attitude-4" name="attitude" value="4">
+        <input type="radio" id="attitude-4" name="attitude" value="4" required>
         <label for="attitude-4">Excellent</label>
 
         <input type="radio" id="attitude-3" name="attitude" value="3">
@@ -189,7 +189,7 @@
     <div class="evaluation-item">
       <p>Attendance:</p>
       <div class="radio-group">
-        <input type="radio" id="attendance-4" name="attendance" value="4">
+        <input type="radio" id="attendance-4" name="attendance" value="4" required>
         <label for="attendance-4">Excellent</label>
 
         <input type="radio" id="attendance-3" name="attendance" value="3">
@@ -210,7 +210,7 @@
     <div class="evaluation-item">
       <p>Completion of required paperwork:</p>
       <div class="radio-group">
-        <input type="radio" id="paperwork-4" name="paperwork" value="4">
+        <input type="radio" id="paperwork-4" name="paperwork" value="4" required>
         <label for="paperwork-4">Excellent</label>
 
         <input type="radio" id="paperwork-3" name="paperwork" value="3">
@@ -231,7 +231,7 @@
     <div class="evaluation-item">
       <p>Organizational skills:</p>
       <div class="radio-group">
-        <input type="radio" id="organize-4" name="organize" value="4">
+        <input type="radio" id="organize-4" name="organize" value="4" required>
         <label for="organize-4">Excellent</label>
 
         <input type="radio" id="organize-3" name="organize" value="3">
@@ -252,7 +252,7 @@
     <div class="evaluation-item">
       <p>Operates machinery safely:</p>
       <div class="radio-group">
-        <input type="radio" id="safety-4" name="safety" value="4">
+        <input type="radio" id="safety-4" name="safety" value="4" required>
         <label for="safety-4">Excellent</label>
 
         <input type="radio" id="safety-3" name="safety" value="3">
@@ -272,30 +272,11 @@
     <br/>
     <button type="submit">Submit Evaluation</button>
   </form>
-<script>
-  document.getElementById('evaluationForm').addEventListener('submit', function (e) {
-    const form = e.target;
-    let isValid = true;
-    let firstInvalidField = null;
-
-    // Loop through all form fields with name attributes
-    form.querySelectorAll('[name]').forEach(field => {
-      if (!field.value.trim()) {
-        isValid = false;
-        field.style.border = '2px solid red'; // visual feedback
-        if (!firstInvalidField) firstInvalidField = field;
-      } else {
-        field.style.border = ''; // reset on re-validate
-      }
-    });
-
-    if (!isValid) {
-      e.preventDefault();
-      alert('Please fill in all fields.');
-      firstInvalidField.focus(); // focus the first invalid field
-    }
-  });
-</script>
+  <script>
+    document.querySelectorAll('#evaluationForm [name]').forEach(el =>{
+      el.required = true;
+    })
+  </script>
 
   <script src="script.js"></script>
 </body>
