@@ -72,12 +72,21 @@
 
     
       <!-- add employee  -->
-        <button type="button" id="showAddEmployee">Add Employee</button>
-        <div id="addEmployeeSection" style="display: none; margin-top: 10px;">
-        <input type="text" id="newEmployeeName" placeholder="Enter employee name" required />
-        <button type="button" id="addEmployeeBtn">Submit</button>
-        </div>
+<!-- Button to Open Modal -->
+<button type="button" id="openAddEmployeeModal" class="add-employee-btn">+ Add Employee</button>
 
+<!-- Modal Container (initially hidden) -->
+    <div id="addEmployeeModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h3>Add New Employee</h3>
+        <input type="text" id="newEmployeeName" placeholder="Enter employee name" />
+        <button id="submitNewEmployee" class="add-employee-btn">Add</button>
+      </div>
+    </div>
+
+  <!-- delete employee  -->
+   
    
     <br/><br/>
 
