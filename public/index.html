@@ -31,44 +31,9 @@
               });
             });
       </script>
+<script src="addEmployeeModal.js"></script>
 
-      <script>
-        const showAddEmployee = document.getElementById('showAddEmployee');
-        const addEmployeeSection = document.getElementById('addEmployeeSection');
-        const addEmployeeBtn = document.getElementById('addEmployeeBtn');
-        const newEmployeeName = document.getElementById('newEmployeeName');
 
-        showAddEmployee.addEventListener('click', () => {
-          addEmployeeSection.style.display = 
-            addEmployeeSection.style.display === 'none' ? 'block' : 'none';
-        });
-
-        addEmployeeBtn.addEventListener('click', async () => {
-          const name = newEmployeeName.value.trim();
-          if (!name) {
-            alert('Please enter a name.');
-            return;
-          }
-
-          const response = await fetch('/employees', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name })
-          });
-
-          if (response.ok) {
-            // Add to the dropdown immediately
-            const option = document.createElement('option');
-            option.value = name;
-            option.textContent = name;
-            document.getElementById('employeeName').appendChild(option);
-            newEmployeeName.value = '';
-            addEmployeeSection.style.display = 'none';
-          } else {
-            alert('Error adding employee.');
-          }
-        });
-      </script>
 
     
       <!-- add employee  -->
