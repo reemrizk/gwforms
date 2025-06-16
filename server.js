@@ -9,7 +9,7 @@ const app = express();
 const PORT = 3000;
 const employeeRoutes = require('./routes/employees');
 app.use(express.json());
-app.use(employeeRoutes);
+app.use('/api', employeeRoutes);
 
 
 // MySQL config - update if needed
@@ -63,17 +63,6 @@ app.post('/submit-evaluation', (req, res) => {
   });
 });
 
-//select employee from dropdown
-app.get("/api/employees", (req, res) => {
-  db.query('SELECT name FROM employees', (err,results) => {
-    if (err){
-      console.error('Failed to fetch employees:', err);
-      return res.status(500).json({ error: 'DB error'});
-    }
-    const names = results.map(row => row.name);
-    res.json(names);
-  });
-});
 
 // POST route to add new employee
 app.post('/employees', (req, res) => {
