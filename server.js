@@ -30,25 +30,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-document.addEventListener('DOMContentLoaded', () => {
-  fetch('/api/employees')
-    .then(res => res.json())
-    .then(employeeNames => {
-      const select = document.getElementById('employeeName');
-      if (!select) return;
-
-      select.innerHTML = '<option value="">-- Select an Employee --</option>';
-      employeeNames.forEach(emp => {
-        const option = document.createElement('option');
-        option.value = emp.name;
-        option.textContent = emp.name;
-        select.appendChild(option);
-      });
-    })
-    .catch(err => {
-      console.error('Failed to load employee list:', err);
-    });
-});
 
 // Endpoint for form submission
 app.post('/submit-evaluation', (req, res) => {
