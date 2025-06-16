@@ -23,10 +23,10 @@
             .then(employeeNames => {
               const select = document.getElementById('employeeName');
               select.innerHTML = '<option value="">-- Select an Employee --</option>';
-              employeeNames.forEach(name => {
+              employeeNames.forEach(emp => {
                 const option = document.createElement('option');
-                option.value = name;
-                option.textContent = name;
+                option.value = emp.name;
+                option.textContent = emp.name;
                 select.appendChild(option);
               });
             });
@@ -86,7 +86,7 @@
     </div>
 
   <!-- delete employee  -->
-   
+
    
     <br/><br/>
 
