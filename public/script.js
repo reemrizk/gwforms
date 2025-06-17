@@ -1,4 +1,4 @@
-console.log("script.js loaded");
+console.log("✅ script.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
   // Load employee dropdown
@@ -30,7 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = document.getElementById('closeModal');
 
   if (openBtn && modal && closeBtn) {
-    openBtn.addEventListener('click', () => modal.style.display = 'block');
+    openBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.style.display = 'block';
+    });
     closeBtn.addEventListener('click', () => modal.style.display = 'none');
     window.addEventListener('click', e => {
       if (e.target === modal) modal.style.display = 'none';
@@ -70,53 +73,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
   }
-});
 
-// Form submission handler
-document.getElementById('evaluationForm').addEventListener('submit', async (event) => {
-  event.preventDefault();
-  console.log(" Submit button clicked");
+  // Form submission handler
+  const form = document.getElementById('evaluationForm');
+  if (form) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      console.log("📤 Submit button clicked");
 
-  const formData = new FormData(event.target);
-  const fields = [
-    'dressed', 'direction', 'performed', 'supervision', 'helpfulness',
-    'beyond', 'attitude', 'attendance', 'paperwork', 'organize', 'safety'
-  ];
+      const formData = new FormData(event.target);
+      const fields = [
+        'dressed', 'direction', 'performed', 'supervision', 'helpfulness',
+        'beyond', 'attitude', 'attendance', 'paperwork', 'organize', 'safety'
+      ];
 
-  let total = 0;
-  let payload = {
-    employeeName: formData.get('employeeName')
-  };
+      let total = 0;
+      let payload = {
+        employeeName: formData.get('employeeName')
+      };
 
-  fields.forEach(field => {
-    const score = parseInt(formData.get(field));
-    payload[field] = score;
-    total += score;
-  });
+      fields.forEach(field => {
+        const score = parseInt(formData.get(field));
+        payload[field] = score;
+        total += score;
+      });
 
-  payload.total = total;
-  payload.grade =
-    total >= 40 ? 'A' :
-    total >= 35 ? 'B' :
-    total >= 29 ? 'C' : 'D';
+      payload.total = total;
+      payload.grade =
+        total >= 40 ? 'A' :
+        total >= 35 ? 'B' :
+        total >= 29 ? 'C' : 'D';
 
-  console.log("📡 Sending fetch to server", payload);
+      console.log("📡 Sending fetch to server", payload);
 
-  try {
-    const res = await fetch('/submit-evaluation', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      try {
+        const res = await fetch('/submit-evaluation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          alert(`✅ Submitted! Score: ${total}, Grade: ${payload.grade}`);
+          document.getElementById('evaluationForm').reset();
+        } else {
+          alert('❌ Submission failed');
+        }
+      } catch (err) {
+        alert('🌐 Network error');
+        console.error(err);
+      }
     });
-
-    if (res.ok) {
-      alert(`Submitted! Score: ${total}, Grade: ${payload.grade}`);
-      document.getElementById('evaluationForm').reset();
-    } else {
-      alert(' Submission failed');
-    }
-  } catch (err) {
-    alert(' Network error');
-    console.error(err);
   }
 });

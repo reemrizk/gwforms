@@ -8,6 +8,21 @@
 </head>
 <body>
 
+<!-- manage employees -->
+<button id="openManageEmployeesModal">Manage Employees</button>
+<!-- Manage Employees Modal -->
+<div id="manageEmployeesModal" class="modal">
+  <div class="modal-content">
+    <span id="closeManageModal" class="close">&times;</span>
+    <h2>Manage Employees</h2>
+
+    <ul id="employeeList"></ul> <!-- Placeholder for listing -->
+
+    <h3>Add New Employee</h3>
+    <input type="text" id="newEmployeeName" placeholder="Enter name" />
+    <button id="submitNewEmployee">Add Employee</button>
+  </div>
+</div>
   <form id="evaluationForm">
     <!-- Employee Name -->
     <label for="employeeName">Employee Name:</label>
@@ -33,21 +48,6 @@
       </script>
 <script src="addEmployeeModal.js"></script>
 
-<!-- manage employees -->
-<button id="openManageEmployeesModal">Manage Employees</button>
-<!-- Manage Employees Modal -->
-<div id="manageEmployeesModal" class="modal">
-  <div class="modal-content">
-    <span id="closeManageModal" class="close">&times;</span>
-    <h2>Manage Employees</h2>
-
-    <ul id="employeeList"></ul> <!-- Placeholder for listing -->
-
-    <h3>Add New Employee</h3>
-    <input type="text" id="newEmployeeName" placeholder="Enter name" />
-    <button id="submitNewEmployee">Add Employee</button>
-  </div>
-</div>
     
       <!-- add employee  -->
 <!-- Button to Open Modal -->
