@@ -65,22 +65,6 @@ app.post('/submit-evaluation', (req, res) => {
 });
 
 
-// POST route to add new employee
-app.post('/employees', (req, res) => {
-  const { name } = req.body;
-  if (!name || name.trim() === '') {
-    return res.status(400).json({ error: 'Name is required' });
-  }
-
-  const sql = 'INSERT INTO employees (name) VALUES (?)';
-  db.query(sql, [name.trim()], (err, result) => {
-    if (err) {
-      console.error('DB Insert Error:', err);
-      return res.status(500).json({ error: 'Failed to add employee' });
-    }
-    res.status(201).json({ message: 'Employee added', id: result.insertId });
-  });
-});
 
 
 // Start server
