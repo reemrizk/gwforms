@@ -1,3 +1,4 @@
+
 console.log("✅ script.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -126,3 +127,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+    
