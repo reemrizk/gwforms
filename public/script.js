@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  loadEmployees();
+  // loadEmployees();
 
   // Modal toggle logic
   const modal = document.getElementById('addEmployeeModal');
