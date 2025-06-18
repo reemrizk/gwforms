@@ -69,6 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showToast(`✅ Added ${data.name}`, 'success');
         input.value = '';
+
+        await refreshEmployeeList(); // updates modal list
+        loadEmployees();        
+        
       } catch (err) {
         console.error(err);
         showToast('Failed to add employee', 'error');
