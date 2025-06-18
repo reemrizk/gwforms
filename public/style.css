@@ -97,3 +97,26 @@ button:hover {
   font-weight: bold;
   cursor: pointer;
 }
+
+.mng-employee-btn{
+  background-color:black;
+  padding: 8px 8px;
+ 
+}
+.mng-employee-btn:hover{
+  background-color: grey;
+}
+
+#openManageEmployeesModal {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #4285f4;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}

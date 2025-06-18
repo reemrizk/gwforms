@@ -11,7 +11,22 @@
 </head>
 <body>
 
+  <!-- manage employee  -->
+    <button type="button" id="openManageEmployeesModal" class="mng-employee-btn">Manage Employees</button>
+    <div id="manageEmployeesModal"class="modal">
 
+      <div class="modal-content">
+      <span class="close" id="closeManageModal">&times;</span>
+      <h3>Manage Employees</h3> 
+      <!-- <select id="employeeSelect" multiple></select> -->
+
+      <h3>Add New Employee</h3>
+        <input type="text" id="newEmployeeName" placeholder="Enter employee name" />
+        <button id="submitNewEmployee" class="add-employee-btn">Add</button>
+ 
+
+      </div>
+    </div>
   <form id="evaluationForm">
     <!-- Employee Name -->
     <label for="employeeName">Employee Name:</label>
@@ -37,22 +52,7 @@
       </script>
 
 
-  <!-- manage employee  -->
-    <button type="button" id="openManageEmployeesModal" class="add-employee-btn">Manage Employees</button>
-    <div id="manageEmployeesModal"class="modal">
 
-      <div class="modal-content">
-      <span class="close" id="closeManageModal">&times;</span>
-      <h3>Manage Employees</h3> 
-      <!-- <select id="employeeSelect" multiple></select> -->
-
-      <h3>Add New Employee</h3>
-        <input type="text" id="newEmployeeName" placeholder="Enter employee name" />
-        <button id="submitNewEmployee" class="add-employee-btn">Add</button>
- 
-
-      </div>
-    </div>
     <br/><br/>
 
     <!-- 1. Dressed appropriately -->
