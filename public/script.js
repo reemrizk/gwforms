@@ -30,6 +30,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
+  function loadEmployees() {
+    fetch('/api/employees')
+      .then(res => res.json())
+      .then(employeeNames => {
+        const select = document.getElementById('employeeName');
+        if (!select) return;
+
+        select.innerHTML = '<option value="">-- Select an Employee --</option>';
+        employeeNames.forEach(emp => {
+          const option = document.createElement('option');
+          option.value = emp.name;
+          option.textContent = emp.name;
+          select.appendChild(option);
+        });
+      })
+      .catch(err => {
+        console.error('Failed to load employee list:', err);
+      });
+  }
+
+  async function refreshEmployeeList() {
+    try {
+      const res = await fetch('/api/employees');
+      const employees = await res.json();
+      const list = document.getElementById('employeeList');
+      if (!list) return;
+
+      list.innerHTML = '';
+      employees.forEach(emp => {
+        const li = document.createElement('li');
+        li.textContent = emp.name;
+        list.appendChild(li);
+      });
+    } catch (err) {
+      console.error('Failed to refresh employee list:', err);
+    }
+  }
+
   // Manage Employees Modal
   const manageModal = document.getElementById('manageEmployeesModal');
   const openManageBtn = document.getElementById('openManageEmployeesModal');
@@ -70,13 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast(`✅ Added ${data.name}`, 'success');
         input.value = '';
 
-        await refreshEmployeeList(); // updates modal list
-        loadEmployees();        
-        
+        await refreshEmployeeList();
+        loadEmployees();
       } catch (err) {
         console.error(err);
         showToast('Failed to add employee', 'error');
       }
     });
   }
+
+  // Initial load for dropdown
+  loadEmployees();
 });
