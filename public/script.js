@@ -1,195 +1,77 @@
+
 console.log("✅ script.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Load employee dropdown
-  function loadEmployees() {
-    fetch('/api/employees')
-      .then(res => res.json())
-      .then(employeeNames => {
-        const select = document.getElementById('employeeName');
-        if (!select) return;
+  function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.padding = '12px 18px';
+    toast.style.marginBottom = '10px';
+    toast.style.borderRadius = '6px';
+    toast.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+    toast.style.color = 'white';
+    toast.style.fontSize = '14px';
+    toast.style.minWidth = '200px';
+    toast.style.transition = 'opacity 0.5s ease';
+    toast.style.opacity = '1';
+    toast.style.backgroundColor = {
+      success: '#4caf50',
+      error: '#f44336',
+      info: '#2196f3',
+      warning: '#ff9800'
+    }[type] || '#333';
 
-        select.innerHTML = '<option value="">-- Select an Employee --</option>';
-        employeeNames.forEach(emp => {
-          const option = document.createElement('option');
-          option.value = emp.name;
-          option.textContent = emp.name;
-          select.appendChild(option);
-        });
-      })
-      .catch(err => {
-        console.error('Failed to load employee list:', err);
-      });
+    const container = document.getElementById('toast-container');
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 500);
+    }, 3000);
   }
-
-  loadEmployees();
 
   // Manage Employees Modal
   const manageModal = document.getElementById('manageEmployeesModal');
   const openManageBtn = document.getElementById('openManageEmployeesModal');
   const closeManageBtn = document.getElementById('closeManageModal');
-  const employeeList = document.getElementById('employeeList');
 
   if (openManageBtn && manageModal && closeManageBtn) {
-    openManageBtn.addEventListener('click', async () => {
+    openManageBtn.addEventListener('click', () => {
       manageModal.style.display = 'block';
-      await refreshEmployeeList();
     });
 
-    closeManageBtn.addEventListener('click', () => manageModal.style.display = 'none');
+    closeManageBtn.addEventListener('click', () => {
+      manageModal.style.display = 'none';
+    });
+
     window.addEventListener('click', e => {
-      if (e.target === manageModal) manageModal.style.display = 'none';
+      if (e.target === manageModal) {
+        manageModal.style.display = 'none';
+      }
     });
   }
-let employeeChoices;
-async function refreshEmployeeList() {
-  try {
-    const res = await fetch('/api/employees');
-    const employees = await res.json();
 
-    const select = document.getElementById('employeeSelect');
-    select.innerHTML = ''; // Clear previous
-
-    employees.forEach(emp => {
-      const option = document.createElement('option');
-      option.value = emp.name;
-      option.textContent = emp.name;
-      select.appendChild(option);
-    });
-
-    if (employeeChoices) {
-      employeeChoices.destroy(); // Clean re-render
-    }
-
-    employeeChoices = new Choices(select, {
-      removeItemButton: true,
-      placeholder: true,
-      placeholderValue: 'Search or remove employees…',
-      searchPlaceholderValue: 'Type to search...',
-    });
-
-    // Handle deletions
-    select.addEventListener('removeItem', async function (event) {
-      const name = event.detail.value;
-      const confirmed = confirm(`Delete "${name}"?`);
-      if (!confirmed) {
-        refreshEmployeeList();
-        return;
-      }
+  const addBtn = document.getElementById('manageAddEmployee');
+  if (addBtn) {
+    addBtn.addEventListener('click', async () => {
+      const input = document.getElementById('manageNewEmployeeName');
+      const name = input.value.trim();
+      if (!name) return showToast('Please enter a name', 'warning');
 
       try {
-        const delRes = await fetch(`/api/employees/${encodeURIComponent(name)}`, {
-          method: 'DELETE',
-        });
-
-        const result = await delRes.json();
-        if (!result.success) {
-          showToast(result.error || 'Failed to delete', 'error');
-        } else {
-          showToast(`Deleted ${name}`, 'success');
-          loadEmployees();
-        }
-      } catch (err) {
-        showToast('Delete failed', 'error');
-        console.error(err);
-      }
-    });
-
-  } catch (err) {
-    console.error('Error loading employee list:', err);
-    showToast('Failed to load employee list', 'error');
-  }
-}
-
-  document.getElementById('manageAddEmployee').addEventListener('click', async () => {
-    const input = document.getElementById('manageNewEmployeeName');
-    const name = input.value.trim();
-    if (!name) return alert('Please enter a name');
-
-    try {
-      const res = await fetch('/api/employees', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name })
-      });
-      const data = await res.json();
-      if (data.error) return alert(data.error);
-      await refreshEmployeeList();
-      input.value = '';
-      loadEmployees();
-    } catch (err) {
-      alert('Failed to add employee');
-    }
-  });
-
-  window.deleteEmployee = async (name) => {
-    if (!confirm(`Delete ${name}?`)) return;
-
-    try {
-      const res = await fetch(`/api/employees/${encodeURIComponent(name)}`, {
-        method: 'DELETE'
-      });
-      const result = await res.json();
-
-      if (result.success) {
-        await refreshEmployeeList();
-        loadEmployees();
-      } else {
-        alert(result.error || 'Delete failed');
-      }
-    } catch (err) {
-      alert('Failed to delete employee');
-    }
-  };
-
-  // Evaluation Form submission
-  const form = document.getElementById('evaluationForm');
-  if (form) {
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      console.log("📤 Submit button clicked");
-
-      const formData = new FormData(event.target);
-      const fields = [
-        'dressed', 'direction', 'performed', 'supervision', 'helpfulness',
-        'beyond', 'attitude', 'attendance', 'paperwork', 'organize', 'safety'
-      ];
-
-      let total = 0;
-      let payload = {
-        employeeName: formData.get('employeeName')
-      };
-
-      fields.forEach(field => {
-        const score = parseInt(formData.get(field));
-        payload[field] = score;
-        total += score;
-      });
-
-      payload.total = total;
-      payload.grade =
-        total >= 40 ? 'A' :
-        total >= 35 ? 'B' :
-        total >= 29 ? 'C' : 'D';
-
-      console.log("📡 Sending fetch to server", payload);
-
-      try {
-        const res = await fetch('/submit-evaluation', {
+        const res = await fetch('/api/employees', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({ name })
         });
+        const data = await res.json();
+        if (data.error) return showToast(data.error, 'error');
 
-        if (res.ok) {
-          alert(`✅ Submitted! Score: ${total}, Grade: ${payload.grade}`);
-          form.reset();
-        } else {
-          alert('❌ Submission failed');
-        }
+        showToast(`✅ Added ${data.name}`, 'success');
+        input.value = '';
       } catch (err) {
-        alert('🌐 Network error');
         console.error(err);
+        showToast('Failed to add employee', 'error');
       }
     });
   }
