@@ -24,55 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loadEmployees();
 
-  // Add Employee Modal
-  const modal = document.getElementById('addEmployeeModal');
-  const openBtn = document.getElementById('openAddEmployeeModal');
-  const closeBtn = document.getElementById('closeModal');
-
-  if (openBtn && modal && closeBtn) {
-    openBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      modal.style.display = 'block';
-    });
-    closeBtn.addEventListener('click', () => modal.style.display = 'none');
-    window.addEventListener('click', e => {
-      if (e.target === modal) modal.style.display = 'none';
-    });
-  }
-
-  const submitNewEmployee = document.getElementById('submitNewEmployee');
-  if (submitNewEmployee) {
-    submitNewEmployee.addEventListener('click', () => {
-      const input = document.getElementById('newEmployeeName');
-      const name = input.value.trim();
-
-      if (!name) {
-        alert('Please enter a name');
-        return;
-      }
-
-      fetch('/api/employees', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name })
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.error) {
-            alert(data.error);
-          } else {
-            loadEmployees();
-            modal.style.display = 'none';
-            input.value = '';
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          alert('Failed to add employee');
-        });
-    });
-  }
-
   // Manage Employees Modal
   const manageModal = document.getElementById('manageEmployeesModal');
   const openManageBtn = document.getElementById('openManageEmployeesModal');
@@ -101,11 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.style.display = 'flex';
         li.style.justifyContent = 'space-between';
+        li.style.alignItems = 'center';
         li.style.marginBottom = '8px';
 
         li.innerHTML = `
           <span>${emp.name}</span>
-          <button style="background-color:red;" onclick="deleteEmployee('${emp.name}')">Delete</button>
+          <button style="background-color:red; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;"
+            onclick="deleteEmployee('${emp.name}')">Delete</button>
         `;
         employeeList.appendChild(li);
       });
@@ -155,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Form submission
+  // Evaluation Form submission
   const form = document.getElementById('evaluationForm');
   if (form) {
     form.addEventListener('submit', async (event) => {
