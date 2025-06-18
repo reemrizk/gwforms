@@ -41,31 +41,65 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === manageModal) manageModal.style.display = 'none';
     });
   }
+let employeeChoices;
+async function refreshEmployeeList() {
+  try {
+    const res = await fetch('/api/employees');
+    const employees = await res.json();
 
-  async function refreshEmployeeList() {
-    try {
-      const res = await fetch('/api/employees');
-      const employees = await res.json();
-      employeeList.innerHTML = '';
+    const select = document.getElementById('employeeSelect');
+    select.innerHTML = ''; // Clear previous
 
-      employees.forEach(emp => {
-        const li = document.createElement('li');
-        li.style.display = 'flex';
-        li.style.justifyContent = 'space-between';
-        li.style.alignItems = 'center';
-        li.style.marginBottom = '8px';
+    employees.forEach(emp => {
+      const option = document.createElement('option');
+      option.value = emp.name;
+      option.textContent = emp.name;
+      select.appendChild(option);
+    });
 
-        li.innerHTML = `
-          <span>${emp.name}</span>
-          <button style="background-color:red; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;"
-            onclick="deleteEmployee('${emp.name}')">Delete</button>
-        `;
-        employeeList.appendChild(li);
-      });
-    } catch (err) {
-      console.error('Error loading employee list:', err);
+    if (employeeChoices) {
+      employeeChoices.destroy(); // Clean re-render
     }
+
+    employeeChoices = new Choices(select, {
+      removeItemButton: true,
+      placeholder: true,
+      placeholderValue: 'Search or remove employees…',
+      searchPlaceholderValue: 'Type to search...',
+    });
+
+    // Handle deletions
+    select.addEventListener('removeItem', async function (event) {
+      const name = event.detail.value;
+      const confirmed = confirm(`Delete "${name}"?`);
+      if (!confirmed) {
+        refreshEmployeeList();
+        return;
+      }
+
+      try {
+        const delRes = await fetch(`/api/employees/${encodeURIComponent(name)}`, {
+          method: 'DELETE',
+        });
+
+        const result = await delRes.json();
+        if (!result.success) {
+          showToast(result.error || 'Failed to delete', 'error');
+        } else {
+          showToast(`Deleted ${name}`, 'success');
+          loadEmployees();
+        }
+      } catch (err) {
+        showToast('Delete failed', 'error');
+        console.error(err);
+      }
+    });
+
+  } catch (err) {
+    console.error('Error loading employee list:', err);
+    showToast('Failed to load employee list', 'error');
   }
+}
 
   document.getElementById('manageAddEmployee').addEventListener('click', async () => {
     const input = document.getElementById('manageNewEmployeeName');

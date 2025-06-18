@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Work Evaluation Form</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
 </head>
 <body>
 
@@ -41,7 +44,8 @@
       <div class="modal-content">
       <span class="close" id="closeManageModal">&times;</span>
       <h3>Manage Employees</h3> 
-      <ul id="employeeList" style="list-style: none; padding: 0;"></ul>
+      <select id="employeeSelect" multiple></select>
+
       <h3>Add New Employee</h3>
         <input type="text" id="newEmployeeName" placeholder="Enter employee name" />
         <button id="submitNewEmployee" class="add-employee-btn">Add</button>
