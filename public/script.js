@@ -1,4 +1,3 @@
-
 console.log("✅ script.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // loadEmployees();
+  loadEmployees();
 
-  // Modal toggle logic
+  // Add Employee Modal
   const modal = document.getElementById('addEmployeeModal');
   const openBtn = document.getElementById('openAddEmployeeModal');
   const closeBtn = document.getElementById('closeModal');
@@ -41,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Submit new employee from modal
   const submitNewEmployee = document.getElementById('submitNewEmployee');
   if (submitNewEmployee) {
     submitNewEmployee.addEventListener('click', () => {
@@ -63,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (data.error) {
             alert(data.error);
           } else {
-            loadEmployees(); // Refresh dropdown
+            loadEmployees();
             modal.style.display = 'none';
             input.value = '';
           }
@@ -75,7 +73,89 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Form submission handler
+  // Manage Employees Modal
+  const manageModal = document.getElementById('manageEmployeesModal');
+  const openManageBtn = document.getElementById('openManageEmployeesModal');
+  const closeManageBtn = document.getElementById('closeManageModal');
+  const employeeList = document.getElementById('employeeList');
+
+  if (openManageBtn && manageModal && closeManageBtn) {
+    openManageBtn.addEventListener('click', async () => {
+      manageModal.style.display = 'block';
+      await refreshEmployeeList();
+    });
+
+    closeManageBtn.addEventListener('click', () => manageModal.style.display = 'none');
+    window.addEventListener('click', e => {
+      if (e.target === manageModal) manageModal.style.display = 'none';
+    });
+  }
+
+  async function refreshEmployeeList() {
+    try {
+      const res = await fetch('/api/employees');
+      const employees = await res.json();
+      employeeList.innerHTML = '';
+
+      employees.forEach(emp => {
+        const li = document.createElement('li');
+        li.style.display = 'flex';
+        li.style.justifyContent = 'space-between';
+        li.style.marginBottom = '8px';
+
+        li.innerHTML = `
+          <span>${emp.name}</span>
+          <button style="background-color:red;" onclick="deleteEmployee('${emp.name}')">Delete</button>
+        `;
+        employeeList.appendChild(li);
+      });
+    } catch (err) {
+      console.error('Error loading employee list:', err);
+    }
+  }
+
+  document.getElementById('manageAddEmployee').addEventListener('click', async () => {
+    const input = document.getElementById('manageNewEmployeeName');
+    const name = input.value.trim();
+    if (!name) return alert('Please enter a name');
+
+    try {
+      const res = await fetch('/api/employees', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      });
+      const data = await res.json();
+      if (data.error) return alert(data.error);
+      await refreshEmployeeList();
+      input.value = '';
+      loadEmployees();
+    } catch (err) {
+      alert('Failed to add employee');
+    }
+  });
+
+  window.deleteEmployee = async (name) => {
+    if (!confirm(`Delete ${name}?`)) return;
+
+    try {
+      const res = await fetch(`/api/employees/${encodeURIComponent(name)}`, {
+        method: 'DELETE'
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        await refreshEmployeeList();
+        loadEmployees();
+      } else {
+        alert(result.error || 'Delete failed');
+      }
+    } catch (err) {
+      alert('Failed to delete employee');
+    }
+  };
+
+  // Form submission
   const form = document.getElementById('evaluationForm');
   if (form) {
     form.addEventListener('submit', async (event) => {
@@ -116,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (res.ok) {
           alert(`✅ Submitted! Score: ${total}, Grade: ${payload.grade}`);
-          document.getElementById('evaluationForm').reset();
+          form.reset();
         } else {
           alert('❌ Submission failed');
         }
@@ -127,4 +207,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-    
