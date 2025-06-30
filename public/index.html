@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Work Evaluation Form</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
 </head>
+
 <body>
 
   <!-- manage employee  -->
-    <button type="button" id="openManageEmployeesModal" class="mng-employee-btn">Manage Employees</button>
-    <div id="manageEmployeesModal"class="modal">
+  <button type="button" id="openManageEmployeesModal" class="mng-employee-btn">Manage Employees</button>
+  <div id="manageEmployeesModal" class="modal">
 
-      <div class="modal-content">
+    <div class="modal-content">
       <span class="close" id="closeManageModal">&times;</span>
-      <h3>Manage Employees</h3> 
-      <!-- <select id="employeeSelect" multiple></select> -->
+      <h2>Manage Employees</h2>
+    
 
       <h3>Add New Employee</h3>
-        <input type="text" id="manageNewEmployeeName" placeholder="Enter employee name" />
-        <button id="manageAddEmployee">Add</button>
- 
+      <input type="text" id="manageNewEmployeeName" placeholder="Enter employee name" />
+      <button id="manageAddEmployee">Add</button>
 
-      </div>
+      <h3>Remove Employee</h3>
+     <ul id="employeeList"></ul>
+
+
     </div>
+  </div>
   <form id="evaluationForm">
     <!-- Employee Name -->
     <label for="employeeName">Employee Name:</label>
-    
-       <select name="employeeName" id="employeeName" required>
-        <!-- <option value="" selected >Select an Employee</option> -->
 
-      </select>
+    <select name="employeeName" id="employeeName" required>
+      <!-- <option value="" selected >Select an Employee</option> -->
+
+    </select>
 
 
 
-    <br/><br/>
+    <br /><br />
 
     <!-- 1. Dressed appropriately -->
     <div class="evaluation-item">
@@ -271,48 +276,49 @@
       </div>
     </div>
 
-    <br/>
+    <br />
     <button type="submit">Submit Evaluation</button>
   </form>
-<script>
-  document.getElementById('evaluationForm').addEventListener('submit', function (e) {
-    const form = e.target;
-    let isValid = true;
+  <script>
+    document.getElementById('evaluationForm').addEventListener('submit', function (e) {
+      const form = e.target;
+      let isValid = true;
 
-    // Clear previous warning borders
-    form.querySelectorAll('.radio-group').forEach(group => {
-      group.style.border = '';
-      group.style.padding = '';
-    });
+      // Clear previous warning borders
+      form.querySelectorAll('.radio-group').forEach(group => {
+        group.style.border = '';
+        group.style.padding = '';
+      });
 
-    // Loop through unique radio groups
-    const uniqueNames = new Set();
-    form.querySelectorAll('input[type="radio"]').forEach(input => {
-      uniqueNames.add(input.name);
-    });
+      // Loop through unique radio groups
+      const uniqueNames = new Set();
+      form.querySelectorAll('input[type="radio"]').forEach(input => {
+        uniqueNames.add(input.name);
+      });
 
-    uniqueNames.forEach(name => {
-      const group = form.querySelectorAll(`input[name="${name}"]`);
-      const oneChecked = Array.from(group).some(input => input.checked);
+      uniqueNames.forEach(name => {
+        const group = form.querySelectorAll(`input[name="${name}"]`);
+        const oneChecked = Array.from(group).some(input => input.checked);
 
-      if (!oneChecked) {
-        isValid = false;
-        // Highlight the radio group's parent div
-        group[0].closest('.radio-group').style.border = '2px solid red';
-        group[0].closest('.radio-group').style.padding = '0.5rem';
+        if (!oneChecked) {
+          isValid = false;
+          // Highlight the radio group's parent div
+          group[0].closest('.radio-group').style.border = '2px solid red';
+          group[0].closest('.radio-group').style.padding = '0.5rem';
+        }
+      });
+
+      if (!isValid) {
+        e.preventDefault();
+        alert('Please complete all required fields.');
       }
     });
-
-    if (!isValid) {
-      e.preventDefault();
-      alert('Please complete all required fields.');
-    }
-  });
-</script>
+  </script>
 
 
   <script src="script.js"></script>
   <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
 
 </body>
+
 </html>

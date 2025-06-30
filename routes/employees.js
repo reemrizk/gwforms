@@ -1,39 +1,44 @@
+// routes/employees.js
 const express = require("express");
 const router = express.Router();
-const mysql = require('mysql2');
+const db = require("../config/db");
 
-
-// MySQL config - update if needed
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'user1',
-  password: 'G00dW!11',
-  database: 'gwforms_db'
-});
-
-//get all employees from db
-router.get('/employees', (req, res) => {
-  db.query('SELECT * FROM employees', (err, results) => {
+// GET all employees
+router.get("/employees", (req, res) => {
+  db.query("SELECT id, name FROM employees", (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(results);
   });
 });
 
-//add new employee
-router.post('/employees', (req, res) => {
+// POST a new employee
+router.post("/employees", (req, res) => {
   const { name } = req.body;
-  if (!name) return res.status(400).json({ error: 'Name is required' });
-  db.query('INSERT INTO employees (name) VALUES (?)', [name], (err, result) => {
+
+  if (!name || typeof name !== 'string') {
+    return res.status(400).json({ error: "Valid name is required" });
+  }
+
+  const query = "INSERT INTO employees (name) VALUES (?)";
+  db.query(query, [name], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
+
     res.status(201).json({ id: result.insertId, name });
   });
 });
 
-//delete employee
-router.delete('/employees/:id', (req, res) => {
+// DELETE employee by ID
+router.delete("/employees/:id", (req, res) => {
   const { id } = req.params;
-  db.query('DELETE FROM employees WHERE id = ?', [id], (err) => {
+
+  const query = "DELETE FROM employees WHERE id = ?";
+  db.query(query, [id], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Employee not found" });
+    }
+
     res.json({ success: true });
   });
 });
