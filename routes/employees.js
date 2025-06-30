@@ -28,11 +28,11 @@ router.post("/employees", (req, res) => {
 });
 
 // DELETE employee by ID
-router.delete("/employees/:id", (req, res) => {
-  const { id } = req.params;
+router.delete("/employees/:name", (req, res) => {
+  const { name } = req.params;
 
-  const query = "DELETE FROM employees WHERE id = ?";
-  db.query(query, [id], (err, result) => {
+  const query = "DELETE FROM employees WHERE name = ?";
+  db.query(query, [name], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
 
     if (result.affectedRows === 0) {
