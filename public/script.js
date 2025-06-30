@@ -51,23 +51,59 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function refreshEmployeeList() {
-    try {
-      const res = await fetch('/api/employees');
-      const employees = await res.json();
-      const list = document.getElementById('employeeList');
-      if (!list) return;
+  try {
+    const res = await fetch('/api/employees');
+    const employees = await res.json();
+    const list = document.getElementById('employeeList');
+    if (!list) return;
 
-      list.innerHTML = '';
-      employees.forEach(emp => {
-        const li = document.createElement('li');
-        li.textContent = emp.name;
-        list.appendChild(li);
+    list.innerHTML = '';
+    employees.forEach(emp => {
+      const li = document.createElement('li');
+      li.style.display = 'flex';
+      li.style.justifyContent = 'space-between';
+      li.style.alignItems = 'center';
+      li.style.marginBottom = '8px';
+
+      li.innerHTML = `
+        <span>${emp.name}</span>
+        <button class="delete-btn" data-name="${emp.name}">❌</button>
+      `;
+
+      list.appendChild(li);
+    });
+
+    // Attach click listeners to delete buttons
+    list.querySelectorAll('.delete-btn').forEach(button => {
+      button.addEventListener('click', async (e) => {
+        const name = e.target.dataset.name;
+        const confirmDelete = confirm(`Delete "${name}"?`);
+        if (!confirmDelete) return;
+
+        try {
+          const delRes = await fetch(`/api/employees/${encodeURIComponent(name)}`, {
+            method: 'DELETE'
+          });
+          const result = await delRes.json();
+
+          if (result.success) {
+            showToast(`🗑️ Deleted ${name}`, 'success');
+            await refreshEmployeeList();
+            loadEmployees();
+          } else {
+            showToast(result.error || 'Delete failed', 'error');
+          }
+        } catch (err) {
+          console.error(err);
+          showToast('Error deleting employee', 'error');
+        }
       });
-    } catch (err) {
-      console.error('Failed to refresh employee list:', err);
-    }
-  }
+    });
 
+  } catch (err) {
+    console.error('Failed to refresh employee list:', err);
+  }
+}
   // Manage Employees Modal
   const manageModal = document.getElementById('manageEmployeesModal');
   const openManageBtn = document.getElementById('openManageEmployeesModal');
@@ -119,4 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial load for dropdown
   loadEmployees();
+
+  
 });

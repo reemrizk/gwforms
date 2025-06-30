@@ -36,21 +36,6 @@
 
       </select>
 
-      <script>
-          fetch('/api/employees')
-            .then(res => res.json())
-            .then(employeeNames => {
-              const select = document.getElementById('employeeName');
-              select.innerHTML = '<option value="">-- Select an Employee --</option>';
-              employeeNames.forEach(emp => {
-                const option = document.createElement('option');
-                option.value = emp.name;
-                option.textContent = emp.name;
-                select.appendChild(option);
-              });
-            });
-      </script>
-
 
 
     <br/><br/>
