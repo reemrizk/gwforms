@@ -43,4 +43,25 @@ router.delete("/employees/:name", (req, res) => {
   });
 });
 
+// UPDATE employee name
+router.put("/employees/:id", (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+
+  if (!name || typeof name !== 'string') {
+    return res.status(400).json({ error: "Valid name is required" });
+  }
+
+  db.query("UPDATE employees SET name = ? WHERE id = ?", [name, id], (err, result) => {
+    if (err) return res.status(500).json({ error: err.message });
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Employee not found" });
+    }
+
+    res.json({ success: true });
+  });
+});
+
+
 module.exports = router;
