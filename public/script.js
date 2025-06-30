@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         input.style.flex = "1";
 
         const saveBtn = document.createElement("button");
-        saveBtn.textContent = "💾";
+        saveBtn.textContent = "Update";
         saveBtn.className = "save-btn";
         saveBtn.addEventListener("click", async () => {
           const newName = input.value.trim();
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             const result = await res.json();
             if (result.success) {
-              showToast("✅ Name updated", "success");
+              showToast("Name updated", "success");
               loadEmployees();
             } else {
               showToast(result.error || "Update failed", "error");
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "❌";
+        deleteBtn.textContent = "Remove";
         deleteBtn.className = "delete-btn";
         deleteBtn.addEventListener("click", async () => {
           const confirmDelete = confirm(`Delete "${emp.name}"?`);
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             const result = await res.json();
             if (result.success) {
-              showToast(`🗑️ Deleted "${emp.name}"`, "success");
+              showToast(`Removed "${emp.name}"`, "success");
               refreshEmployeeList();
               loadEmployees();
             } else {

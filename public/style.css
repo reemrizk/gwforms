@@ -119,3 +119,8 @@ button:hover {
   cursor: pointer;
   font-size: 14px;
 }
+
+.save-btn {
+  background-color:black;
+  padding: 8px 8px;
+}
