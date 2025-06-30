@@ -28,7 +28,7 @@ router.post("/employees", (req, res) => {
 });
 
 // DELETE employee by ID
-router.delete("/employees/:name", (req, res) => {
+router.delete("/employees/:id", (req, res) => {
   const { id } = req.params;
 
   const query = "DELETE FROM employees WHERE id = ?";
