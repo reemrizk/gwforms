@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (openManageBtn && manageModal && closeManageBtn) {
     openManageBtn.addEventListener('click', () => {
       manageModal.style.display = 'block';
+      refreshEmployeeList();
     });
 
     closeManageBtn.addEventListener('click', () => {
