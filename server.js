@@ -2,8 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const mysql = require('mysql2');
 const path = require('path');
+const db = require('./config/db');
 
 const app = express();
 const PORT = 3000;
@@ -11,19 +11,6 @@ const employeeRoutes = require('./routes/employees');
 app.use(express.json());
 app.use('/api', employeeRoutes);
 
-
-// MySQL config - update if needed
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'user1',
-  password: 'G00dW!11',
-  database: 'gwforms_db'
-});
-
-db.connect(err => {
-  if (err) throw err;
-  console.log(' Connected to MySQL');
-});
 
 // Middleware
 app.use(cors());
